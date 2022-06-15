@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -23,9 +24,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,15 +39,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.study.dto.ApprovalDTO;
 import com.study.dto.ApprovalFileDTO;
 import com.study.dto.AttDTO;
+import com.study.dto.BoardDTO;
 import com.study.dto.CommuteDTO;
 import com.study.dto.CriteriaDTO;
 import com.study.dto.PageDTO;
+import com.study.dto.ReplyDTO;
+import com.study.dto.ReplyPageDTO;
 import com.study.service.ApprovalService;
+import com.study.service.BoardService;
 import com.study.service.CommuteService;
 import com.study.service.DispatchService;
 import com.study.service.HrService;
 import com.study.service.MemoService;
 import com.study.service.MsgService;
+import com.study.service.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -70,10 +80,14 @@ public class UserController {
 	@Autowired
 	private HrService hrService;
 	
+	// 5. 사용자 - 게시물
+	@Autowired
+	private BoardService boardService;
 	
 	
-	
-	
+	// 6. 사용자 - 댓글
+	@Autowired
+	private ReplyService replyService;
 	
 	
 	
@@ -365,9 +379,158 @@ public class UserController {
 	
 	
     
- //////////////////////////////////////////////////////////////////메인페이지 시작//////////////////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////메인페이지 시작//////////////////////////////////////////////////////////////////////
     
-    // 메인 페이지는 SecurityController 에서 처리
+    // 메인 페이지는 SecurityController 에서 처리 => 결이 오빠 거는 끝
+    
+ ////////////////////////////////////////////////////메인페이지 끝///////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ ////////////////////////////////////////////////////게시물 시작///////////////////////////////////////////////////////   
+    
+    @GetMapping("/board/list")
+    public void boardListGet(Model model, @ModelAttribute("cri") CriteriaDTO cri) {
+       log.info("일단 list로 넘어옴");
+       
+       List<BoardDTO> boardList = boardService.selectBoardAll(cri);
+       log.info("list 넣어줌");
+
+       int total = boardService.totalCnt(cri);
+
+       model.addAttribute("pageDto", new PageDTO(cri, total));
+       model.addAttribute("boardList", boardList);
+       log.info("model에 넣어줌");
+    }
+
+    @GetMapping("/board/create")
+    public void boardcGet() {
+       log.info("create 요청");
+    }
+
+    @PostMapping("/board/create")
+    public String boardcPost(BoardDTO insertDto) {
+       log.info("create post 요청");
+       
+       boardService.create(insertDto);
+       
+       return "redirect:/user/board/list";
+    }
+
+    @GetMapping({"/board/readrow","/board/modify"})
+       public void readGet(String board_id,@ModelAttribute("cri") CriteriaDTO cri,Model model) {
+          log.info("게시물 요청 "+board_id);
+          log.info("게시물 요청 "+cri);
+          
+          BoardDTO dto = boardService.getRow(board_id);
+          model.addAttribute("dto", dto);
+       }
+    
+    @PostMapping("/board/modify")
+    public String modify(BoardDTO updateDto, @ModelAttribute("cri") CriteriaDTO cri, RedirectAttributes rttr) {
+       log.info("수정 완료" + updateDto);
+       
+       boardService.modify(updateDto);
+       
+       //수정 성공
+       rttr.addAttribute("board_id", updateDto.getBoard_id());
+       rttr.addAttribute("pageNum", cri.getPageNum());
+       rttr.addAttribute("amount", cri.getAmount());   
+       rttr.addAttribute("type", cri.getType());
+       rttr.addAttribute("keyword", cri.getKeyword());
+       
+       return "redirect:/user/board/readrow";
+    }
+    
+    @GetMapping("/board/delete")
+    public String delete(String board_id) {
+       log.info("게시물 삭제");
+       
+       boardService.delete(board_id);
+    
+    
+       return "redirect:/user/board/list";
+       
+    }
+    
+    
+    ////////////////////////////////////////////////////댓글 시작///////////////////////////////////////////////////////   
+    
+    @PostMapping(path = "/replies/new")
+    public ResponseEntity<String> create(@RequestBody ReplyDTO insertDto){
+       log.info("댓글 삽입 요청 "+insertDto);
+       
+       return replyService.replyInsert(insertDto)?new ResponseEntity<String>("success", HttpStatus.OK):
+          new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    // 댓글 하나 가져오기 - /replies/rno + GET 
+    // 성공시 ReplyDTO + 200   
+    @GetMapping("/replies/{reply_id}")
+    public ResponseEntity<ReplyDTO> get(@PathVariable("reply_id") String reply_id){
+       log.info("댓글 가져오기 "+reply_id);
+       return new ResponseEntity<ReplyDTO>(replyService.replyRow(reply_id), HttpStatus.OK);
+    }
+    
+    // 댓글 수정 - /replies/1 + PUT + body(수정내용-json)
+    // 성공시 success + 200, 실패시 fail + 500
+    //@RequestMapping(path = "/{rno}", method = {RequestMethod.PUT,RequestMethod.PATCH})
+    @PutMapping("/replies/{reply_id}")
+    public ResponseEntity<String> create(@PathVariable("reply_id") String reply_id,@RequestBody ReplyDTO updateDto){
+       
+       log.info("댓글 수정 요청 "+updateDto);   
+       
+       updateDto.setReply_id(reply_id);      
+       
+       return replyService.replyUpdate(updateDto)?new ResponseEntity<String>("success", HttpStatus.OK):
+          new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    // 댓글삭제 : /replies/rno + Delete
+    // 성공시 success + 200, 실패시 fail + 500
+    @DeleteMapping("/replies/{reply_id}")
+    public ResponseEntity<String> remove(@PathVariable("reply_id") String reply_id){
+       
+       log.info("댓글 삭제 요청 "+ reply_id);         
+       
+       return replyService.replyDelete(reply_id)?new ResponseEntity<String>("success", HttpStatus.OK):
+          new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    //댓글 리스트 : /replies/pages/bno/page + GET
+    //성공시 댓글 리스트
+    // http://localhost:9090/replies/pages/500/1
+    @GetMapping("/replies/pages/{board_id}/{page}")
+    public ResponseEntity<ReplyPageDTO> getList(@PathVariable("board_id") String board_id,@PathVariable("page") int page){
+       log.info("댓글 리스트 요청 board_id="+board_id+", page = "+page);
+       
+       CriteriaDTO cri = new CriteriaDTO(page, 10);
+       
+       return new ResponseEntity<ReplyPageDTO>(replyService.getList(cri, board_id), HttpStatus.OK);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

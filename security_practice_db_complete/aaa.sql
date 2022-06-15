@@ -1,13 +1,13 @@
 select * from mem ORDER BY mem_id;
 DELETE FROM mem where mem_id = '20220009';
 
-select * from AUTHORITY;
+select * from company;
 
 -- 메모 값 삽입
 insert into memo
 values(concat('메모',memo_seq.nextval),'20220010','hello');
 
-select * from memo;
+select * from reply;
 
 
 delete from mem where mem_id='admin';
@@ -116,3 +116,23 @@ values(concat('NO',msg_seq.nextval),'20220008','20220011','안녕하세요',sysd
 -- 메모
 insert into memo
 values(concat('MEMO',memo_seq.nextval),'20220011','hello');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- 댓글이 있어도 게시물 삭제 시 연쇄적으로 삭제하기
+ALTER TABLE reply
+MODIFY CONSTRAINT FK_REPLY_BOARD_ID
+ON DELETE CASCADE;

@@ -31,6 +31,8 @@
 		}
 		
 </style>
+		 <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		 
 		
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="/resources/css/styles.css" rel="stylesheet" />
@@ -205,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="collapse" id="collapseBoards" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="layout-static.html">공지 게시판</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">커뮤니티</a>
+                                    <a class="nav-link" href="/user/board/list">커뮤니티</a>
                                 </nav>
                             </div>
                            

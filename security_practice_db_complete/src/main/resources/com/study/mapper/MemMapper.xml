@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.MemMapper">
+	
+		<select id="select"  resultType="com.study.dto.MemDTO">
+		<![CDATA[  		
+			select *
+			from (select /*+INDEX_DESC(mem mem_id)*/ rownum rn, mem.*
+				  from mem
+				  where 
+			]]>	  
+				 <include refid="criteria"></include>			 
+			  
+			<![CDATA[ 	  
+			 		rownum <= (#{pageNum} * #{amount}))
+			where rn > (#{pageNum} - 1) * #{amount}		
+		 ]]>
+	
+	</select>
+	
+	<select id="totalCnt" resultType="int">
+		select count(*) from mem where 
+		
+		<include refid="criteria"></include>	
+		
+		
+		rownum > 0
+	</select>
+	
+	<!-- 동적 sql -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='G'.toString()">
+							grade_id like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							company_id like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='D'.toString()">
+							dept_id like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='N'.toString()">
+							mem_name like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- <insert id="insert">	
+		insert into mem(mem_id,grade_id,company_id,dept_id,mem_name,mem_phone,mem_mail,mem_gender,mem_birth,mem_addr,mem_sal,mem_pwd,mem_con_start,mem_con_end,mem_dcon_start,mem_dcon_end)
+		values(#{mem_id},#{grade_id},#{company_id},#{dept_id},#{mem_name},#{mem_phone},#{mem_mail},#{mem_gender},#{mem_birth, jdbcType=DATE},#{mem_addr},#{mem_sal},#{mem_pwd},#{mem_con_start, jdbcType=DATE},#{mem_con_end, jdbcType=DATE},#{mem_dcon_start, jdbcType=DATE},#{mem_dcon_end, jdbcType=DATE})
+	</insert> -->
+	
+	<select id="read" resultType="com.study.dto.MemDTO">
+		select *
+		from mem where mem_id=#{mem_id} 
+	</select>
+	
+	<!-- bno 가 일치하면 content,title 수정, updatedate 도 수정날짜 -->
+	<update id="update">
+		update mem
+		set grade_id=#{grade_id}, company_id=#{company_id}, dept_id=#{dept_id}, mem_phone=#{mem_phone}, mem_mail=#{mem_mail}, mem_addr=#{mem_addr}, mem_sal=#{mem_sal}, mem_pwd=#{mem_pwd},mem_con_end=#{mem_con_end, jdbcType=DATE}, mem_dcon_end=#{mem_dcon_end, jdbcType=DATE}
+		where mem_id=#{mem_id}
+	</update>
+	
+	<delete id="delete">
+	
+		delete from mem
+		where mem_id=#{mem_id}
+	
+	</delete>
+</mapper>
