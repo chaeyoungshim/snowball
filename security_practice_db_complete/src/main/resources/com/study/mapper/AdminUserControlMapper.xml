@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.AdminUserControlMapper">
+	
+	
+	<!-- 관리자가 사용자 리스트 확인하기 -->
+	<select id="userList" resultType="com.study.dto.MemDTO">
+		select * from mem order by mem_id asc
+	</select>
+	
+	
+	<!-- 관리자가 사용자 회원가입시켜주기 -->
+	<insert id="userInsert">
+		insert into mem(mem_id, grade_id, company_id, dept_id, mem_name, mem_phone, mem_mail, mem_gender, mem_birth, mem_addr, mem_sal, mem_pwd, mem_con_start,mem_con_end, mem_dcon_start, mem_dcon_end,enabled)   
+		values( #{mem_id}, #{grade_id} ,#{company_id}, #{dept_id} , #{mem_name}, #{mem_phone}, #{mem_mail}, #{mem_gender}, #{mem_birth}, #{mem_addr}, #{mem_sal}, #{mem_pwd}, #{mem_con_start}, #{mem_con_end}, #{mem_dcon_start}, #{mem_dcon_end}, 1)
+	</insert>
+	
+	
+	<!-- 권한 부여 -->
+	<insert id="authInsert">
+		insert into authority(mem_id, authority) values(#{mem_id},#{authority})
+	</insert>
+	
+	
+	<!-- 로그인 => 조인 sql문 -->
+	<resultMap type="com.study.dto.MemDTO" id="user">
+		<id property="mem_id" column="mem_id"/>
+		<result property="mem_name" column="mem_name"/>
+		<result property="mem_pwd" column="mem_pwd"/>
+		<result property="enabled" column="enabled"/>
+		<collection property="authorities" resultMap="authList"/>
+	</resultMap>
+	<resultMap type="com.study.dto.AuthorityDTO" id="authList">
+		<result property="mem_id" column="mem_id"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	
+	
+	<!-- 관리자가 회원가입 시켜준 사용자가 로그인하기 -->
+	<select id="login" resultMap="user">
+		select m.mem_id, mem_name, mem_pwd, enabled, authority
+		from mem m join authority a on m.mem_id = a.mem_id
+		where m.mem_id = #{mem_id}
+	</select>
+
+</mapper>

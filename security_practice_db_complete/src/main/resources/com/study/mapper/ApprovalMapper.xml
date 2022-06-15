@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ApprovalMapper">
+	
+	<!-- 페이지 나누기 개념 없을 때 -->
+   <select id="select" resultType="com.study.dto.ApprovalDTO">
+      <![CDATA[ 
+     	select approval_id,mem_id,approval_type_id,approval_commit_id,approval_inter_id,approval_final_id,approval_reject,approval_content
+		from (
+				select /*+INDEX_DESC(approval pk_approval)*/ rownum rn, approval_id,mem_id,approval_type_id,approval_commit_id,approval_inter_id,approval_final_id,approval_reject,approval_content 
+    			from (
+    					select approval_id,mem_id,approval_type_id,approval_commit_id,approval_inter_id,approval_final_id,approval_reject,approval_content 
+    					from approval 
+    					order by TO_NUMBER(REGEXP_SUBSTR(approval_id, '[0-9]+',1,1)) desc
+    		 		 )
+    			where
+      ]]> 
+      <include refid="criteria"></include>
+      <![CDATA[
+		approval_id >= 'APPR1' and rownum <= (#{pageNum} * #{amount}))
+		where rn > (#{pageNum} - 1) * #{amount}
+		
+	  ]]>
+   </select>
+   <!-- 동적 sql -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+			<!--  priefixOverides로 맨앞에 or 제거 후 시작 -->
+				<trim prefix="OR">
+					<choose>
+						<!-- approval_content 속에서 검색 -->
+						<when test="type=='W'.toString()">
+							approval_content like '%'||#{keyword}||'%'
+						</when>
+						<!-- approval_id 속에서 검색 -->
+						<when test="type=='T'.toString()">
+							approval_id like '%'||#{keyword}||'%'
+						</when>
+						<!-- mem_id 속에서 검색 -->
+						<when test="type=='C'.toString()">
+							mem_id like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+   
+   <!-- 전체 게시물 숫자니까 int형 -->
+   	<select id="totalCnt" resultType="int">
+     select count(*) from approval where
+     <include refid="criteria"></include>
+     approval_id >= 'APPR1'
+   </select>
+
+	<insert id="insert">
+		insert into approval(approval_id,mem_id,approval_type_id, approval_inter_id, approval_final_id, approval_reject, approval_content)  
+		values(concat('APPR', approval_seq.nextval),#{mem_id} ,#{approval_type_id}, #{approval_inter_id},#{approval_final_id},#{approval_reject},#{approval_content})
+	</insert>
+	
+	<!-- 1개 read 폼 호출 -->
+	<select id="read" resultType="com.study.dto.ApprovalDTO">
+		select * from approval where approval_id = #{approval_id}
+	</select>
+	
+	<!-- <insert id="commit_insert">
+		insert into approval_commit(approval_commit_id, approval_commit_inter_check, approval_commit_final_check)  
+		values(concat('APPRCOM',approval_commit_seq.nextval), 'X', 'X')
+	</insert>	
+	
+	<select id ="get_commit" resultType = "com.study.dto.ApprovalCommitDTO">
+   		select concat('APPRCOM',approval_commit_seq.currval) from approval_commit
+	</select>
+	 -->
+	
+</mapper>
