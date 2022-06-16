@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -41,15 +43,19 @@ import com.study.dto.ApprovalFileDTO;
 import com.study.dto.AttDTO;
 import com.study.dto.BoardDTO;
 import com.study.dto.CommuteDTO;
+import com.study.dto.CompanyDTO;
 import com.study.dto.CriteriaDTO;
+import com.study.dto.MailDTO;
 import com.study.dto.PageDTO;
 import com.study.dto.ReplyDTO;
 import com.study.dto.ReplyPageDTO;
 import com.study.service.ApprovalService;
 import com.study.service.BoardService;
 import com.study.service.CommuteService;
+import com.study.service.CompanyService;
 import com.study.service.DispatchService;
 import com.study.service.HrService;
+import com.study.service.MailService;
 import com.study.service.MemoService;
 import com.study.service.MsgService;
 import com.study.service.ReplyService;
@@ -88,6 +94,20 @@ public class UserController {
 	// 6. 사용자 - 댓글
 	@Autowired
 	private ReplyService replyService;
+	
+	
+	// 7. 사용자 - 이메일 전송 제외한 리스트 조회, 읽기모드만 권한 주기
+	@Inject
+	MailService mailService;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -374,16 +394,30 @@ public class UserController {
        List<CommuteDTO> comlist= commuteService.readCommute(att_id);
        model.addAttribute("comlist", comlist);
     }
-///////////////////////////////////////////////////// 업무지원 끝 /////////////////////////////////////////////////////////////////////////////////////
-	
+///////////////////////////////////////////////////// 업무지원 끝 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
     
- ////////////////////////////////////////////////////메인페이지 시작//////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	
+    
+ ////////////////////////////////////////////////////메인페이지 시작////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // 메인 페이지는 SecurityController 에서 처리 => 결이 오빠 거는 끝
     
- ////////////////////////////////////////////////////메인페이지 끝///////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////메인페이지 끝/////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
@@ -395,7 +429,7 @@ public class UserController {
     
     
     
- ////////////////////////////////////////////////////게시물 시작///////////////////////////////////////////////////////   
+ ////////////////////////////////////////////////////게시물 시작////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     
     @GetMapping("/board/list")
     public void boardListGet(Model model, @ModelAttribute("cri") CriteriaDTO cri) {
@@ -460,9 +494,20 @@ public class UserController {
        return "redirect:/user/board/list";
        
     }
+////////////////////////////////////////////////////게시글 끝/////////////////////////////////////////////////////////////////////////////////////////////////////////    
     
     
-    ////////////////////////////////////////////////////댓글 시작///////////////////////////////////////////////////////   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ////////////////////////////////////////////////////댓글 시작/////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     @PostMapping(path = "/replies/new")
     public ResponseEntity<String> create(@RequestBody ReplyDTO insertDto){
@@ -516,6 +561,7 @@ public class UserController {
        
        return new ResponseEntity<ReplyPageDTO>(replyService.getList(cri, board_id), HttpStatus.OK);
     }
+////////////////////////////////////////////////////댓글 끝/////////////////////////////////////////////////////////////////////////////////////////////////////////    
     
     
     
@@ -525,9 +571,33 @@ public class UserController {
     
     
     
+///////////////////////////////////////////////////////////////////////////사용자에게는 메일 리스트-읽기만 가능해야하기 때문에 메일 전송은 adminController 에서////////////////////////////////////
     
+
+    @GetMapping("/email/noticeList")
+	   public String list(MailDTO mailDto,Model model) {
+	      
+	      log.info("공지 메일 리스트 요청");
+	      
+	      List<MailDTO> list = mailService.select(mailDto);
+	      log.info("공지 메일 리스트를 받아서 리스트안에 담기");
+	      
+	      model.addAttribute("notice_list", list);
+	      log.info("공지 메일 리스트를 담은 리스트를 --> notice_list로");
+	      return "/user/email/notice_list"; //jsp 보여주기
+	   }
     
-    
+	   
+	   @GetMapping("/email/noticeRead")
+	   public String readEmail(String mail_id, Model model) {
+	      log.info("id로 공지 폼 읽기");
+	      
+	      MailDTO noticeRead = mailService.read(mail_id);
+	      
+	      model.addAttribute("noticeRead", noticeRead);
+	      
+	      return "/user/email/notice_read";
+	   }
     
     
     

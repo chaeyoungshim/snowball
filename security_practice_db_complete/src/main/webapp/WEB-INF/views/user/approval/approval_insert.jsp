@@ -50,11 +50,11 @@
   </div>
   <div class="form-group">
     <label for="approval_reject">결재반려사유</label>
-    <input type="text" class="form-control" name="approval_reject">
+    <input type="text" class="form-control" name="approval_reject" required>
   </div>
   <div class="form-group">
     <label for="approval_content">결재내용</label>
-    <input type="text" class="form-control" name="approval_content">
+    <input type="text" class="form-control" name="approval_content" required>
   </div>
   <div class="uploadDiv">
    		<input type="file" name="uploadFile" id="" multiple />

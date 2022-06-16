@@ -7,7 +7,7 @@ select * from company;
 insert into memo
 values(concat('메모',memo_seq.nextval),'20220010','hello');
 
-select * from reply;
+select * from mail;
 
 
 delete from mem where mem_id='admin';

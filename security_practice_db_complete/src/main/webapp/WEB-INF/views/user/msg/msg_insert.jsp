@@ -20,15 +20,15 @@
                 			<form action="" method="post" role="form">
                 				<div class="form-group">
                 					<label style="width: 15%;">수신자</label>
-                					<input style="width: 20%;" class="form-control" name="receiver_id">                				
+                					<input style="width: 20%;" class="form-control" name="receiver_id" required>                				
                 				</div>  
                 				<div class="form-group">
                 					<label>내용</label>
-                					<textarea class="form-control" style="resize: none;" rows="10" name="msg_content"></textarea>               				
+                					<textarea class="form-control" style="resize: none;" rows="10" name="msg_content" required></textarea>               				
                 				</div> 
                 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 				<button type="submit" class="btn btn-default">보내기</button>              			
-                				<button type="button" class="btn back-user">돌아가기</button>                 				            			
+                				<button type="button" class="btn btn-default back-user">돌아가기</button>                 				            			
                 			</form>
                 		</div>
                 	</div>

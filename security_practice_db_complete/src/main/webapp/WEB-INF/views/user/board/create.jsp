@@ -18,16 +18,16 @@
   </div>
   <div class="form-group">
      <label for="board_title">제목</label>
-     <input type="text" name="board_title" class="form-control"/> 
+     <input type="text" name="board_title" class="form-control" required/> 
    </div>
    <div class="form-group">
     <label for="board_content">내용</label>
-    <input type="text" name="board_content" class="form-control"/> 
+    <input type="text" name="board_content" class="form-control" required/> 
    </div>
   
  <div class="form-groups">
   <button type="submit" class="btn btn-primary">올리기</button>
-  <button type="button" class="btn btn-primary back-admin">돌아가기</button>
+  <button type="button" class="btn btn-primary" onclick="location='/user/board/list'">돌아가기</button>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
  </div>
 </form>
