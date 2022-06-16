@@ -1,31 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../../includes/header.jsp" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@include file="../../../views/includes/header.jsp" %>
 
 <div id="layoutSidenav_content">
-<main>
-<div class="container-fluid px-4 pt-4">
+                <main>
+                    <div class="container-fluid px-4">
+                    	<h1 class="mt-4 breadcrumb mb-4 layout-center">
+							<input type="text" name="mem_id" value='공지메일 발신' class="login-name" readonly/>   
+						</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Email Send</li>
+                        </ol>
 
-<div class="row">
-  <div>
-    <h1 class="page-header">공지메일 발신</h1>
-  </div>
-<!-- post 방식으로 자료를 컨트롤러로 보냄 -->
 <form action="/admin/email/send.do" method="post">
-
-발신자 명 : <input name="mail_name" ><br><br>
-발신자 이메일 : <input name="sender_id" value="jsw30295@gmail.com" readonly="readonly"><br><br>
-수신자 이메일 : <input name="receiver_id"><br><br>
-제목 : <input name="mail_title"><br><br>
-<div style="text-align:top">내용 :</div> <textarea rows="5" cols="80" name="mail_content" style="resize: none;"></textarea>
-<br>
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-<input type="submit" value="전송">
+  <div class="form-group">
+    <label for="mem_id">발신자 명</label>
+	<input type="text" name="mail_name" class="form-control" />
+  </div>
+  <div class="form-group">
+	<label for="approval_type_id">발신자 이메일</label>
+	<input type="text" name="sender_id" class="form-control" value="jsw30295@gmail.com" readonly />
+  </div>
+  <div class="form-group">
+    <label for="approval_inter_id">수신자 이메일</label>
+    <input type="text" name="receiver_id" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="approval_final_id">제목</label>
+    <input type="text" name="mail_title" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="approval_reject">내용</label>
+    <input type="text" class="form-control" name="mail_content" >
+  </div>
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+  <input type="submit" value="전송">
 </form>
+
 <span style="color:red">${message}</span>
 
 </div>
 </div>
-</main>
+
 <%@include file="../../includes/footer.jsp" %>
 </div>

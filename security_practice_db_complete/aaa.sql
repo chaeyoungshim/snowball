@@ -1,7 +1,7 @@
 select * from mem ORDER BY mem_id;
 DELETE FROM mem where mem_id = '20220009';
 
-select * from company;
+select * from APPROVAL;
 
 -- 메모 값 삽입
 insert into memo

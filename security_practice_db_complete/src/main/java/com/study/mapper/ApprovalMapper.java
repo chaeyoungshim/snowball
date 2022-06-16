@@ -11,4 +11,7 @@ public interface ApprovalMapper {
 	public List<ApprovalDTO> select(CriteriaDTO cri);
 	public int totalCnt(CriteriaDTO cri); //처리할 인자 없으니까
 	public ApprovalDTO read(String approval_id);
+	
+	// 결재 승인 생성
+    public int commit_insert();
 }

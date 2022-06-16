@@ -50,7 +50,7 @@
   </div>
   <div class="form-group">
     <label for="approval_reject">결재반려사유</label>
-    <input type="text" class="form-control" name="approval_reject" required>
+    <input type="text" class="form-control" name="approval_reject" >
   </div>
   <div class="form-group">
     <label for="approval_content">결재내용</label>
