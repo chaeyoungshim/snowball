@@ -11307,9 +11307,9 @@ body {
 }
 
 #layoutAuthentication {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  display: block;
+  /* flex-direction: column; */
+  /* min-height: 100vh; */
 }
 #layoutAuthentication #layoutAuthentication_content {
   min-width: 0;

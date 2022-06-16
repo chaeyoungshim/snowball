@@ -60,10 +60,10 @@ public class AdminController {
 	public String adminMemList(Model model, @ModelAttribute("cri") CriteriaDTO cri) {
 		log.info("관리자가 사용자 리스트 확인");
 		
-		List<MemDTO> mem = listService.select(cri);
+		List<MemDTO> mem = controlService.userList(cri);
 		
 		//전체 게시물 수 구하기
-		int total = listService.totalCnt();
+		int total = controlService.totalCnt(cri);
 		
 		model.addAttribute("pageDto", new PageDTO(cri, total));
         model.addAttribute("mem", mem);

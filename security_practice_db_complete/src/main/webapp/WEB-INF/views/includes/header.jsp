@@ -18,7 +18,7 @@
         <style>
          #content-block {
 		    display: inline-block;
-			width: 30vw;
+			width: 19vw;
  		    height: fit-content;		    
  		    white-space: nowrap;
 		    overflow: hidden; 

@@ -14,6 +14,19 @@
                             <li class="breadcrumb-item active">Member List</li>
                         </ol>
 
+ <div class="col-md-8">
+          <!--search Form-->
+          	<form action="" method="get" id="searchForm">
+       	    	<input type="hidden" name="pageNum" value="${cri.pageNum}" /> 
+				<input type="hidden" name="amount" value="${cri.amount}" />
+          		<select name="type" id="">
+           		<option value="W" <c:out value="${cri.type == 'W' ? 'selected':'' }"/>>사용자명</option>
+           		<option value="C" <c:out value="${cri.type == 'C' ? 'selected':'' }"/>>사용자ID</option>
+       	    	</select>
+       	    	<input type="text" name="keyword" id="" value="${cri.keyword}"/>
+       	    	<button class="btn btn-default" type="submit">Search</button>
+          	</form>
+
 
 <table class="table">
   <thead>

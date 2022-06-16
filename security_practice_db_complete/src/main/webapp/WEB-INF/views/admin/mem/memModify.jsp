@@ -63,7 +63,7 @@
                 				</div> 
                 				<div class="form-group">
                 					<label>비밀번호</label>
-                					<input class="form-control" name="mem_pwd" readonly value="${dto.mem_pwd}">                				
+                					<input class="form-control" name="mem_pwd" value="${dto.mem_pwd}">                				
                 				</div>
                 				<div class="form-group">
                 					<label>계약일</label>

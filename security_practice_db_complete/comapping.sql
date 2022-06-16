@@ -5,6 +5,6 @@ insert into mem(mem_id, grade_id, company_id, dept_id, mem_name, mem_phone, mem_
 
 select * from mem order by mem_id desc;
 
-select count(*) from mem;
+select * from mem;
 
 select * from reply;

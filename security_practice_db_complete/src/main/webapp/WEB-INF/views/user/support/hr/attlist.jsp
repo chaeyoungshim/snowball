@@ -42,12 +42,10 @@ prefix="c" %>
 		  </c:forEach> 
 		  </tbody>
         </table>
-          </div>
+		<button type="button" class="btn btn-primary back-user" >뒤로가기</button>
+    </div>
           
-<button type="button" class="btn btn-primary back-user" style="float: right;">뒤로가기</button>
 
 <script src="/resources/js/hrbutton.js?ver=4"></script>
 
-</body>
-</html>
 <%@include file="../../../../views/includes/footer.jsp" %>

@@ -61,7 +61,7 @@
   </c:forEach> 
   </tbody>
 </table>
-<button type="button" class="boardc" onclick="location='/user/board/create'">글작성</button>
+<button type="button" class="btn btn-primary" onclick="location='/user/board/create'">글작성</button>
 
 
 <!-- 페이지 나누기 하단 부분 -->

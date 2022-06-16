@@ -1,13 +1,17 @@
 package com.study.service;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.dto.AuthorityDTO;
+import com.study.dto.CriteriaDTO;
+import com.study.dto.CustomUser;
 import com.study.dto.MemDTO;
 import com.study.mapper.AdminUserControlMapper;
 
@@ -24,10 +28,21 @@ public class AdminUserControlServiceImpl implements AdminUserControlService {
 	
 	
 	
+//	@Override
+//	public List<MemDTO> userList() {
+//		return mapper.userList();
+//	}
+	
 	@Override
-	public List<MemDTO> userList() {
-		return mapper.userList();
+	public List<MemDTO> userList(CriteriaDTO cri) {
+		return mapper.userList(cri);
 	}
+
+	@Override
+	public int totalCnt(CriteriaDTO cri) {
+		return mapper.totalCnt(cri);
+	}
+	
 	
 	
 	//mapper 에서 userInsert의 Mem 테이블과 authInsert의 Mem과 Authority 조인 테이블을 
@@ -70,5 +85,33 @@ public class AdminUserControlServiceImpl implements AdminUserControlService {
 	public boolean delete(String mem_id) {
 		return mapper.delete(mem_id)==1?true:false;
 	}
+
+
+	
+
+
+
+
+
+	
+	
+	// 사용자가 직접 비밀번호 변경하기 => 암호화된 비밀번호 디코딩하고 다시 인코딩하기
+//	@Override
+//	public boolean pwdChange(String mem_pwd, String mem_id) {
+//		
+//		if(encoder.matches(mem_pwd,   )) {
+//			return true;
+//		}
+//		
+//		
+//		return false;
+//	}
+	
+//	@Override
+//	public boolean pwdChange(String mem_pwd, String mem_id) {
+//		return mapper.pwdChange(mem_pwd, mem_id)==1?true:false;
+//	}
+	
+	
 
 }

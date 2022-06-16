@@ -40,9 +40,9 @@ prefix="c" %>
 		  </c:forEach> 
 		  </tbody>
         </table>
-          </div>
+         <button type="button" class="btn btn-primary back-user1">리스트목록</button>
+     </div>
           
-         <button type="button" class="btn btn-primary back-user1" style="float: right;">리스트목록</button>
           
 <script src="/resources/js/hrbutton.js?ver=3"></script>
 

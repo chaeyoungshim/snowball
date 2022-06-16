@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.study.dto.CustomUser;
+import com.study.dto.MemDTO;
 import com.study.dto.MemoDTO;
 import com.study.dto.MsgDTO;
+import com.study.service.AdminUserControlService;
 import com.study.service.MemoService;
 import com.study.service.MsgService;
 
@@ -34,9 +40,13 @@ public class SecurityController {
 	private MemoService memoService;
 	
 	
+	// 3. 인코드 도입하기
+	@Autowired 
+    private PasswordEncoder encoder;
 	
-	
-	
+	// 여기도 사용해야해서 - 비밀번호 변경
+	@Autowired
+	private AdminUserControlService controlService;
 	
 	
 	
@@ -134,6 +144,29 @@ public class SecurityController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	// 비밀번호 변경하기
+//	@GetMapping("/pwdChange")
+//    public void getPrevModify(Authentication auth) {
+//		log.info("비밀번호 변경 jsp");
+//    }
+//
+//    @PostMapping("/pwdChange")
+//    public String pwdChange(String mem_pwd, Principal principal, RedirectAttributes rttr) {
+//     
+//    	log.info("비밀번호 바꾸기 => 현재 정보 : "+mem_pwd + principal.getName());
+//    	
+//    	controlService.pwdChange(changePwd);
+//    	
+//        return "redirect:/user/index";
+//    }
+
 	
 }
 

@@ -19,8 +19,8 @@ pageEncoding="UTF-8"%>
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <button id="regBtn" type="button" class="btn-pr-4 mb-2">
-          원청 등록
+        <button id="regBtn" type="button" class="btn-primary">
+          등록하기
         </button>
       </div>
       <!-- /.panel-heading -->

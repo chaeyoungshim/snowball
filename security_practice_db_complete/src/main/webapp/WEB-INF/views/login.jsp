@@ -13,9 +13,9 @@
 		        .content{
 		            display: inline-block;
 		            position: fixed;
-		            width: 35%;
-		            height: 45%;
-		            border: 2px solid black;
+/* 		            width: 20%;
+		            height: 30%; */
+		            border: 1px solid black;
 		            top: 50%;
 		            left: 50%;
 		            transform: translate(-50%, -50%);
@@ -23,6 +23,26 @@
 		            border-radius: 20px;
 		            /* opacity: 0.5; */
 		        }
+		        
+/* 		        div{
+		        	border: 2px solid #000;
+		        } */
+		        
+		        @media all and(max-width: 960px){
+						.content{
+							width: 700px;
+							background-color: dodgerblue;
+					    }
+				}
+					
+/* 					@media all and(max-width: 480px){
+						.content{
+							width: 300px;
+							height: 400px;
+					    }
+					} */
+		        
+		        
 			</style>
 
         <link rel="stylesheet" type="text/css" href="/resources/css2/style.css" />
@@ -31,14 +51,41 @@
     </head>
     <body>
     <script type="module" src="/resources/js/app.js"></script>
-	  <div class="content">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Co-Mapping</h3></div>
+    
+    
+    <!-- <div class="content">
+    	<div class="w-auto h-25">
+    		<div class="card-header">Co-Mapping</div>
+    	</div>
+    	<div class="w-auto h-25">
+    		<div class="card-body">
+    			<form action="/login" method="post" class="form-signin">
+    				<div class="form-group h-25">
+                    	<input type="text" id="username" name="username" class="form-control" placeholder="아이디를 입력해 주세요" required autofocus/>
+                        <label for="username">아이디</label>
+                    </div>
+                    <div class="form-group h-25">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해 주세요" required/>   
+                        <label for="password">비밀번호</label>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-block" style="background-color: dodgerblue; color: white; border-color: dodgerblue;" 
+                        type="submit" >로그인</button>
+                    </div>
+    			</form>
+    		</div>
+    	</div>
+    </div> -->
+   
+	  <div class="row content">
+	 	 
+	  	<div class="h-100">
+        <div id="layoutAuthentication" class="h-100">
+            <div id="layoutAuthentication_content" class="h-100" >
+                        <div class="h-100 justify-content-center"> 
+                                    <div class="card-header mt-3" style="background: #BDE8F5;border-radius: 20px;opacity: 80%;">
+									<h3 class="text-center font-weight-light my-2 justify-items-center">Co-Mapping</h3>
+									</div>
                                     <div class="card-body">
                                         <form action="/login" method="post" class="form-signin">
                                             <div class="form-floating mb-3">
@@ -49,9 +96,10 @@
                                                 <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해 주세요" required/>   
                                                 <label for="password">비밀번호</label>
                                             </div>
-                         
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <button class="btn btn-lg btn-primary btn-block" type="submit" >로그인</button>
+                          
+                                            <div class="col text-center">
+                                                <button class="btn btn-lg btn-block" style="background-color: dodgerblue; color: white; border-color: dodgerblue;" 
+                                                type="submit" >로그인</button>
                                             </div>
                                             <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/>
 											<div class="error-message">
@@ -59,12 +107,13 @@
 											</div>
                                         </form>
                                     </div>
-                                </div>
-                            </div>
+                               
+
                         </div>
-                </main>
   			   </div>          
             </div>
-          </div>  
+            </div>
+         </div>
+           
 		</body>
 </html>

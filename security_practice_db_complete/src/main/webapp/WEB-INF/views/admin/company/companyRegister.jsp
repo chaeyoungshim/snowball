@@ -50,7 +50,8 @@
             <input name="company_partner_end" class="form-control" required>
          </div>
          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-         <button class="btn btn-lg btn-primary btn-block" type="submit">원청 등록</button>
+         <button type="submit" class="btn btn-primary">원청 등록</button>
+         <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">원청 등록</button> -->
         <!--  <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="location='/admin/company/companyList'">돌아가기</button> -->
 	      </form>
 	   </div>
