@@ -5,13 +5,13 @@
 <select id="memoReadRow" resultType="com.study.dto.MemoDTO">
 	select memo_id, mem_id, memo_content
 	from MEMO
-	where mem_id = '20220011'
+	where mem_id = #{mem_id}
 </select>
 
 <update id="memoUpdate">
 	update memo
 	set memo_content = #{memo_content}
-	where memo_id = '20220011'
+	where mem_id = #{mem_id}
 </update>
 
 

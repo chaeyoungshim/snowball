@@ -115,7 +115,7 @@ values(concat('NO',msg_seq.nextval),'20220008','20220011','안녕하세요',sysd
 
 -- 메모
 insert into memo
-values(concat('MEMO',memo_seq.nextval),'20220011','hello');
+values(concat('MEMO',memo_seq.nextval),'20220013','진로 안녕');
 
 
 

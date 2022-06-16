@@ -48,6 +48,7 @@ public class AdminUserControlServiceImpl implements AdminUserControlService {
 		auth = new AuthorityDTO(user.getMem_id(), "ROLE_ADMIN");
 		mapper.authInsert(auth);
 		
+		mapper.memoInsert(user);
 		
 		return result;
 	}

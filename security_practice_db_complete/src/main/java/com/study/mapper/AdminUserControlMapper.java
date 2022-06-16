@@ -19,4 +19,7 @@ public interface AdminUserControlMapper {
 	
 	// 사용자가 로그인하기
 	public MemDTO login(String mem_id);
+	
+	// 시용자 회원가입 될 때마다 메모 삽입해주기 자동으로
+	public int memoInsert(MemDTO user);
 }

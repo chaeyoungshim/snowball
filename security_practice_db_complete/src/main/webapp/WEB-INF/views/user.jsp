@@ -84,9 +84,6 @@
                               <div class="row">
 								  <div class="col-mb-3 memocl">
 								 	<form action="" method="post" role="form" id="listForm" >
-								      	<div>
-											<input class="form-control" style="width: 15%;" type="text" name="memo_id" value="${memoRead.memo_id}" readonly="readonly"/>
-										</div>
 										<div>	
 											<input class="form-control" style="width: 15%;" type="text" name="mem_name" value='<sec:authentication property="principal.user.mem_name"/>' readonly="readonly"/>
 											<input type="hidden" style="width: 15%;" name="mem_id" value='<sec:authentication property="principal.username"/>' readonly="readonly"/>

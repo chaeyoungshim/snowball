@@ -1,5 +1,6 @@
 package com.study.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,8 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public boolean memoUpdate(MemoDTO memoRead) {
-		return mapper.memoUpdate(memoRead)==1?true:false;
+	public boolean memoUpdate(@Param("memo_content") String memo_content, @Param("mem_id") String mem_id) {
+		return mapper.memoUpdate(memo_content,mem_id)==1?true:false;
 	}
 
 

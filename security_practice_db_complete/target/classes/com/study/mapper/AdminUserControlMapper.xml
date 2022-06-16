@@ -16,6 +16,12 @@
 	</insert>
 	
 	
+	<!-- 사용자 추가될 때마다 각각 메모 알아서 insert 해주기 -->
+ 	<insert id="memoInsert">
+      insert into memo(memo_id,mem_id,memo_content) values(concat('MEMO',memo_seq.nextval),#{mem_id},' ')
+    </insert>
+	
+	
 	<!-- 권한 부여 -->
 	<insert id="authInsert">
 		insert into authority(mem_id, authority) values(#{mem_id},#{authority})

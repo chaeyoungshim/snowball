@@ -77,18 +77,19 @@ public class SecurityController {
 		
 		List<MsgDTO> mList = msgService.mSelect(principal.getName());
 		model.addAttribute("mList", mList);
-//		
-//		MemoDTO memoRead = memoService.memoReadRow(mem_id);
-//		model.addAttribute("memoRead", memoRead);
+		
+		// 메모 읽어들이기 => 시큐리티 정보 아이디로 불러오기
+		MemoDTO memoRead = memoService.memoReadRow(principal.getName());
+		model.addAttribute("memoRead", memoRead);
 		
 		return "user";
 	}
 	
-	// 사용자 main 페이지
+	// 사용자 main 페이지 => 메모 때문에 post 부분 처리
 	@PostMapping("/user/index")
-	public String memoUpdate(MemoDTO memoRead, RedirectAttributes rttr) { 
+	public String memoUpdate(String memo_content,Principal principal, RedirectAttributes rttr) { 
 		log.info("메모 수정 요청 ");
-		memoService.memoUpdate(memoRead); // 메모 수정 후 메인페이지 이동
+		memoService.memoUpdate(memo_content,principal.getName()); // 메모 수정 후 메인페이지 이동
 		return "redirect:/user/index";
 	}
 	
