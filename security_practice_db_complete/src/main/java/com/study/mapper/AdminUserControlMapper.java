@@ -22,4 +22,9 @@ public interface AdminUserControlMapper {
 	
 	// 시용자 회원가입 될 때마다 메모 삽입해주기 자동으로
 	public int memoInsert(MemDTO user);
+	
+	// 태현 - 
+	public MemDTO read(String mem_id);
+	public int update(MemDTO updateDto);
+	public int delete(String mem_id);
 }

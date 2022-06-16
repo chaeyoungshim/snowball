@@ -56,7 +56,7 @@ public class AdminController {
 	
 	
 	//관리자 - 직원 리스트
-	@GetMapping("/memList")
+	@GetMapping("/mem/memList")
 	public String adminMemList(Model model, @ModelAttribute("cri") CriteriaDTO cri) {
 		log.info("관리자가 사용자 리스트 확인");
 		
@@ -68,28 +68,112 @@ public class AdminController {
 		model.addAttribute("pageDto", new PageDTO(cri, total));
         model.addAttribute("mem", mem);
 		
-		return "/admin/mem_list";
+		return "/admin/mem/mem_list";
 	}
 	
 	
 	//관리자 - 직원 추가 => 회원가입 부분
-	@GetMapping("/memInsert")
+	@GetMapping("/mem/memInsert")
 	public String userInsertGet() {
 		log.info("관리자가 사용자 추가해주기");
-		return "/admin/mem_insert";
+		return "/admin/mem/mem_insert";
 	}
 	
 	
 	// 직원 추가하는 폼 처리하기 => 회원가입 부분!!!!! insertUser
-	@PostMapping("/memInsert")
+	@PostMapping("/mem/memInsert")
 	public String userInsert(MemDTO user) {
 		log.info("직원 추가하기(회원가입)" + user);
 		
 		if(controlService.userInsert(user)) {
-			return "redirect:/admin/memList";
+			return "redirect:/admin/mem/memList";
 		}
-		return "redirect:/admin/memInsert";
+		return "redirect:/admin/mem/memInsert";
 	}
+	
+	
+	
+	
+	   // 사용자 - 태현
+//	   @PostMapping("/mem/memDelete")
+//	   public String listPost(String mem_id,RedirectAttributes rttr) {
+//	      rttr.addAttribute("mem_id",mem_id);
+//	      
+//	      return"redirect:/admin/mem/memRemove";
+//	   }
+	   
+	   @GetMapping({"/mem/memRead","/mem/memModify"})
+	   public void readGet(String mem_id, Model model) {
+	      log.info("게시물 요청 "+mem_id);
+//	      log.info("게시물 요청 "+cri);
+	      
+	      MemDTO dto = controlService.getRow(mem_id);
+	      model.addAttribute("dto", dto);
+	   }
+	   
+	   @PostMapping("/mem/memUpdate")
+	   public String modify(MemDTO updateDto, RedirectAttributes rttr) {
+	      log.info("게시물 수정 요청 "+updateDto);
+//	      log.info("게시물 수정 요청 - cri "+cri);
+	      
+	      controlService.update(updateDto);
+	      
+	      //수정 성공
+	      rttr.addAttribute("mem_id", updateDto.getMem_id());
+//	      rttr.addAttribute("pageNum", cri.getPageNum());
+//	      rttr.addAttribute("amount", cri.getAmount());   
+//	      rttr.addAttribute("type", cri.getType());
+//	      rttr.addAttribute("keyword", cri.getKeyword());
+	      return "redirect:/admin/mem/memRead";
+	   }
+	   
+	   @PostMapping("/mem/memRemove")
+	   public String remove(String mem_id, RedirectAttributes rttr) {
+	      log.info("게시물 삭제 요청 "+mem_id);
+//	      log.info("게시물 삭제 요청-cri "+cri);
+	      
+	      
+	      //DB작업 - 게시글 삭제 + 첨부파일 삭제 + 댓글 삭제
+	      controlService.delete(mem_id);
+	      
+	      // 주소줄에 딸려보내는 방식
+//	      rttr.addAttribute("pageNum", cri.getPageNum());
+//	      rttr.addAttribute("amount", cri.getAmount());
+//	      rttr.addAttribute("type", cri.getType());
+//	      rttr.addAttribute("keyword", cri.getKeyword());
+	      // 세션을 이용하는 방식
+	      rttr.addFlashAttribute("result", "success");
+	      
+	      return "redirect:/admin/mem/memList";
+	   }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

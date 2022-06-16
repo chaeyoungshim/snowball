@@ -76,7 +76,7 @@ $(function(){
             //fileCallPath : 파라미터로 넘기는 방식, 인코딩 된 방식
             str += "<li data-path='"+obj.approval_file_dir+"' data-uuid='"+obj.approval_file_id+"' data-filename='"+obj.approval_file_name+"' data-type='"+obj.approval_file_type+"'>";
             str += "<a href=\"javascript:showImage(\'"+oriPath+"\')\">";
-            str += "<img src='/user/display?fileName="+fileCallPath+"'></a>";
+            str += "<img src='/display?fileName="+fileCallPath+"'></a>";
             str += "<div>"+obj.approval_file_name;
             str += "<button type='button' class='btn btn-warning btn-circle' data-file='"+fileCallPath+"' data-type='image'>";
             str += "<i class='fa fa-times'></i></button>";

@@ -217,7 +217,7 @@
                             <!-- 게시판 하위 메뉴 -->
                             <div class="collapse" id="collapseBoards" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-sidenav-light.html">커뮤니티</a>
+                                    <a class="nav-link" href="/user/board/list">커뮤니티</a>
                                 </nav>
                             </div>
                            
@@ -236,8 +236,8 @@
 		                            <!-- 관리자 하위 메뉴 -->
 		                            <div class="collapse" id="collapseAdmin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 		                                <nav class="sb-sidenav-menu-nested nav">
-		                                  	 <a class="nav-link" href="/admin/memInsert">사용자 추가하기</a>
-		                                   	 <a class="nav-link" href="/admin/memList">사용자 조회하기</a>
+		                                  	 <a class="nav-link" href="/admin/mem/memInsert">사용자 추가하기</a>
+		                                   	 <a class="nav-link" href="/admin/mem/memList">사용자 조회하기</a>
 		                                   	 <a class="nav-link" href="/admin/company/companyList">원청 조회하기</a>
 		                                   	 <a class="nav-link" href="/admin/email/write.do">메일 전송하기</a>
 		                                </nav>

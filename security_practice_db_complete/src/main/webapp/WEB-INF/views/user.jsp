@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="../views/includes/header.jsp" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -13,7 +12,6 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Main Page</li>
                         </ol>
-                        
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
@@ -22,7 +20,6 @@
                                         쪽지
                                     </div>
                                     <div class="card-body" style="display: inline-block; white-space:nowrap; height:39rem;">
-                                    
                                      <div>
                                     	<form action="" method="post" class="msgViewForm" style="overflow:scroll; height:38rem; letter-spacing:0; word-spacing:0;">
 									      <table class=".table table-striped table-bordered table-hover " style="font-size: 18px; width:25vw;">
@@ -66,27 +63,21 @@
                                     <div class="card-body">
                                     <div id="calendar"></div>
                                     </div>
-
-                                    
                                 </div>
                             </div>
                         </div>
-                        
-                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 메모
                             </div>
                             <div class="card-body">
-                            
-                            
                               <div class="row">
 								  <div class="col-mb-3 memocl">
-								 	<form action="" method="post" role="form" id="listForm" >
+								 	<form action="/user/index" method="post" role="form" id="listForm" >
 										<div>	
 											<input class="form-control" style="width: 15%;" type="text" name="mem_name" value='<sec:authentication property="principal.user.mem_name"/>' readonly="readonly"/>
-											<input type="hidden" style="width: 15%;" name="mem_id" value='<sec:authentication property="principal.username"/>' readonly="readonly"/>
+											<input type="hidden" style="width: 15%;" name="mem_id" value='<sec:authentication property="principal.username"/>'/>
 										</div>
 										<div class="col-mb-6">
 									  <textarea class="form-control" style="resize: none;" rows="7" name="memo_content">${memoRead.memo_content}</textarea>
@@ -98,11 +89,9 @@
 								    </form>
 								  </div>
 								</div>
-                            
                             </div>
                         </div>
                     </div>
                 </main>
 <%@include file="../views/includes/footer.jsp" %>
 </div>
-

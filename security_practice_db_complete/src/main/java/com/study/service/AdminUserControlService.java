@@ -14,4 +14,11 @@ public interface AdminUserControlService {
 	// 이 때 권한 주는 메소드는 여기에 추가 x => userInsert 안에서 실행시켜줄거라
 	public boolean userInsert(MemDTO user);
 	
+	
+	
+	
+	// 태현
+	public MemDTO getRow(String mem_id);
+	public boolean update(MemDTO updateDto);
+	public boolean delete(String mem_id);
 }

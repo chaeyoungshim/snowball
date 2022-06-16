@@ -7,7 +7,7 @@ select * from APPROVAL;
 insert into memo
 values(concat('메모',memo_seq.nextval),'20220010','hello');
 
-select * from mail;
+select * from memo;
 
 
 delete from mem where mem_id='admin';
@@ -99,23 +99,24 @@ insert into approval(approval_id, mem_id,approval_type_id, approval_commit_id, a
 (select concat('APPR', approval_seq.nextval),mem_id,approval_type_id, approval_commit_id, approval_inter_id, approval_final_id, approval_reject, approval_content from approval);
 
 
--- 결재 더미값
+-- 사용자 더미값
 insert into mem(mem_id, grade_id, company_id, dept_id, mem_name, mem_phone, mem_mail, mem_gender, mem_birth, mem_addr, mem_sal, mem_pwd, mem_con_start,mem_con_end, mem_dcon_start, mem_dcon_end,enable) 
 (select concat('2022', mem_seq.nextval),grade_id, company_id, dept_id, mem_name, mem_phone, mem_mail, mem_gender, mem_birth, mem_addr, mem_sal, mem_pwd, mem_con_start,mem_con_end, mem_dcon_start, mem_dcon_end,enable from mem);
 
 
-select * from msg;
+select * from AUTHORITY;
 
-select * from memo;
+select * from mem;
 
 -- 쪽지
 insert into msg
 values(concat('NO',msg_seq.nextval),'20220008','20220011','안녕하세요',sysdate);
 
+delete from approval_file where mem_id='20220013';
 
 -- 메모
 insert into memo
-values(concat('MEMO',memo_seq.nextval),'20220013','진로 안녕');
+values(concat('MEMO',memo_seq.nextval),'admin','관리자');
 
 
 

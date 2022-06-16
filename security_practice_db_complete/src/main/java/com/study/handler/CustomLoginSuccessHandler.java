@@ -39,7 +39,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		// 권한이 ROLE_ADMIN 인 경우
 		if(roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/admin/index");
+			response.sendRedirect("/user/index");
 			return;
 		}
 		

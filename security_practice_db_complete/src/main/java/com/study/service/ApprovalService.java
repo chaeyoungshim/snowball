@@ -11,7 +11,7 @@ public interface ApprovalService {
 	public void insert(ApprovalDTO insertDto);
 	public List<ApprovalDTO> select(CriteriaDTO cri);
     public int totalCnt(CriteriaDTO cri);
-    public ApprovalDTO read(String att_id);
+    public ApprovalDTO read(String approval_id);
     public boolean insertFile(ApprovalFileDTO attach);
     
 	//첨부파일

@@ -2,6 +2,7 @@ package com.study.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,8 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Transactional
 	@Override
-	public boolean replyInsert(ReplyDTO insertDto) {
-		return mapper.replyInsert(insertDto)==1?true:false;
+	public boolean replyInsert(@Param("mem_id") String mem_id,@Param("board_id") String board_id,@Param("reply_content") String reply_content) {
+		return mapper.replyInsert(mem_id,board_id,reply_content)==1?true:false;
 	}
 
 

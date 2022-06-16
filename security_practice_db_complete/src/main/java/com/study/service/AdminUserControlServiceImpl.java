@@ -45,12 +45,30 @@ public class AdminUserControlServiceImpl implements AdminUserControlService {
 		mapper.authInsert(auth);
 		
 //		// 관리자 처음에만 권한주기
-		auth = new AuthorityDTO(user.getMem_id(), "ROLE_ADMIN");
-		mapper.authInsert(auth);
+//		auth = new AuthorityDTO(user.getMem_id(), "ROLE_ADMIN");
+//		mapper.authInsert(auth);
 		
 		mapper.memoInsert(user);
 		
 		return result;
+	}
+
+
+	@Override
+	public MemDTO getRow(String mem_id) {
+		return mapper.read(mem_id);
+	}
+
+
+	@Override
+	public boolean update(MemDTO updateDto) {
+		return mapper.update(updateDto)==1?true:false;
+	}
+
+
+	@Override
+	public boolean delete(String mem_id) {
+		return mapper.delete(mem_id)==1?true:false;
 	}
 
 }

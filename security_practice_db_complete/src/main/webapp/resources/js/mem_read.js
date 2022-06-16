@@ -2,19 +2,14 @@
  * read.jsp 스크립트
  */
 $(function(){
+
+	let formSubmit = $("#formSubmit"); // 정보 폼 전송하는 것
 	
-	//operForm 가져오기
 	let operForm = $("#operForm");
 	
-	
-	//list 버튼 클릭시  /board/list 로 이동
+	//list 버튼 클릭시  
 	$(".btn-info").click(function(){
-		
-		
-		// operForm action 수정	
-		operForm.attr("action","/mem/mem_list");		
-		// operForm 보내기
-		operForm.submit();
+		location.href = '/admin/mem/memList';
 	})
 	
 	
@@ -23,6 +18,15 @@ $(function(){
 		operForm.submit();
 	})
 	
+	
+	
+	$(".btn-danger").click(function(){
+		if(!confirm("사용자를 삭제 하시겠습니까?")){
+			alert("사용자가 삭제되지 않았습니다");
+		}
+		formSubmit.attr('action', "/admin/mem/memRemove");
+		formSubmit.submit();
+	})
 	
 })
 

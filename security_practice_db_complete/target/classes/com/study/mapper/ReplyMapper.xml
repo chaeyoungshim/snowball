@@ -4,8 +4,8 @@
 
 	<!-- 댓글 등록 -->  
 	<insert id="replyInsert">
-		insert into reply(reply_id,board_id,mem_id,reply_content)
-		values(reply_seq.nextval,#{board_id},#{mem_id},#{reply_content})
+		insert into reply(reply_id,mem_id,board_id,reply_content,reply_regdate)
+		values(reply_seq.nextval,#{mem_id},#{board_id},#{reply_content},sysdate)
 	</insert>
 	
 	<!-- 댓글 하나 가져오기 : read -->

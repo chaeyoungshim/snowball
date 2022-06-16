@@ -56,8 +56,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public ApprovalDTO read(String att_id) {
-		return mapper.read(att_id);
+	public ApprovalDTO read(String approval_id) {
+		return mapper.read(approval_id);
 	}
 	
 	@Override

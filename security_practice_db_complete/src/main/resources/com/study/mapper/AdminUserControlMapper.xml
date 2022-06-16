@@ -12,7 +12,7 @@
 	<!-- 관리자가 사용자 회원가입시켜주기 -->
 	<insert id="userInsert">
 		insert into mem(mem_id, grade_id, company_id, dept_id, mem_name, mem_phone, mem_mail, mem_gender, mem_birth, mem_addr, mem_sal, mem_pwd, mem_con_start,mem_con_end, mem_dcon_start, mem_dcon_end,enabled)   
-		values( #{mem_id}, #{grade_id} ,#{company_id}, #{dept_id} , #{mem_name}, #{mem_phone}, #{mem_mail}, #{mem_gender}, #{mem_birth}, #{mem_addr}, #{mem_sal}, #{mem_pwd}, #{mem_con_start}, #{mem_con_end}, #{mem_dcon_start}, #{mem_dcon_end}, 1)
+		values( #{mem_id}, #{grade_id} ,#{company_id}, #{dept_id} , #{mem_name}, #{mem_phone}, #{mem_mail}, #{mem_gender}, #{mem_birth, jdbcType=DATE}, #{mem_addr}, #{mem_sal}, #{mem_pwd}, #{mem_con_start, jdbcType=DATE}, #{mem_con_end, jdbcType=DATE}, #{mem_dcon_start, jdbcType=DATE}, #{mem_dcon_end, jdbcType=DATE}, 1)
 	</insert>
 	
 	
@@ -48,5 +48,36 @@
 		from mem m join authority a on m.mem_id = a.mem_id
 		where m.mem_id = #{mem_id}
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 태현 - 사용자 읽기, 수정, 삭제 부분 -->
+	<select id="read" resultType="com.study.dto.MemDTO">
+		select *
+		from mem where mem_id=#{mem_id} 
+	</select>
+	
+	<update id="update">
+		update mem
+		set grade_id=#{grade_id}, company_id=#{company_id}, dept_id=#{dept_id}, mem_name=#{mem_name} ,mem_phone=#{mem_phone}, mem_mail=#{mem_mail}, mem_gender=#{mem_gender} , mem_birth=#{mem_birth, jdbcType=DATE} ,mem_addr=#{mem_addr}, mem_sal=#{mem_sal}, mem_con_end=#{mem_con_end, jdbcType=DATE}, mem_dcon_end=#{mem_dcon_end,jdbcType=DATE} 
+		where mem_id=#{mem_id}
+	</update>
+	
+	
+	<delete id="delete">
+		delete from mem
+		where mem_id=#{mem_id}
+	</delete>
+	
+	
+	
+	
+	
+	
 
 </mapper>

@@ -11,6 +11,9 @@ let replyService=(function(){
          url : '/user/replies/new',
          type : 'post',
          contentType : "application/json; charset=utf-8",
+         beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+		 },
          data : JSON.stringify(reply_content),
          success : function(result){
             console.log("======="+result);
@@ -48,7 +51,8 @@ let replyService=(function(){
                callback(result);
             }
          }         
-      })         }//get 종료   
+      })         
+   }//get 종료   
    
    
    function update(reply,callback){      
@@ -57,6 +61,9 @@ let replyService=(function(){
          url:'/user/replies/'+reply.reply_id,
          type:'put',
          contentType:'application/json',
+         beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+		 },
          data:JSON.stringify(reply),
          success:function(result){
             if(callback){
@@ -71,7 +78,10 @@ let replyService=(function(){
       
       $.ajax({
          url : '/user/replies/'+reply_id,
-         type:'delete',         
+         type:'delete',        
+         beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+		 }, 
          success : function(result){
             if(callback){
                callback(result);

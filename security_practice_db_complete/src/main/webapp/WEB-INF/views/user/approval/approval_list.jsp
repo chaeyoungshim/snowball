@@ -68,7 +68,7 @@
 	    </c:forEach>
 	  </tbody>
 	</table>
-	<button type="button" class="btn btn-primary back-user">돌아가기</button>
+	<button type="button" class="btn btn-primary back-user">메인페이지</button>
 	
 	<!-- 페이지 나누기 하단 부분 -->
 	<div class="text-center">

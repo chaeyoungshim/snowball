@@ -122,6 +122,9 @@
 </form>
 <script>
 	let board_id = '${dto.board_id}';
+	
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
 </script>
 <script src="/resources/js/read_row.js"></script>
 <script src="/resources/js/reply.js"></script> 

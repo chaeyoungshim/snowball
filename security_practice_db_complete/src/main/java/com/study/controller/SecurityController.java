@@ -25,14 +25,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SecurityController {
 	
-	// 5. 메인 페이지 - 쪽지
+	// 1. 메인 페이지 - 쪽지
 	@Autowired
 	private MsgService msgService;
 	
-	// 6. 메인 페이지 - 메모
+	// 2. 메인 페이지 - 메모
 	@Autowired
 	private MemoService memoService;
-	
 	
 	
 	
@@ -79,15 +78,15 @@ public class SecurityController {
 		model.addAttribute("mList", mList);
 		
 		// 메모 읽어들이기 => 시큐리티 정보 아이디로 불러오기
-		MemoDTO memoRead = memoService.memoReadRow(principal.getName());
-		model.addAttribute("memoRead", memoRead);
+		MemoDTO memoRead = memoService.memoReadRow(principal.getName()); // 로그인한 사람 거
+		model.addAttribute("memoRead", memoRead);  // 로그인 한 사람의 메모 보여주기
 		
 		return "user";
 	}
 	
 	// 사용자 main 페이지 => 메모 때문에 post 부분 처리
 	@PostMapping("/user/index")
-	public String memoUpdate(String memo_content,Principal principal, RedirectAttributes rttr) { 
+	public String memoUpdate(String memo_content,Principal principal) { 
 		log.info("메모 수정 요청 ");
 		memoService.memoUpdate(memo_content,principal.getName()); // 메모 수정 후 메인페이지 이동
 		return "redirect:/user/index";
@@ -131,44 +130,9 @@ public class SecurityController {
 	public String msgDelete(String msg_id, RedirectAttributes rttr) {
 		log.info("delete 확인 요청");
 		msgService.msgDelete(msg_id);
-	 return "redirect:/user/index";
+		return "redirect:/user/index";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 관리자 main 페이지
-	@GetMapping("/admin/index")
-	public String adminPage() {
-		log.info("admin page 요청");
-		return "admin";
-	}
 	
 	
 }

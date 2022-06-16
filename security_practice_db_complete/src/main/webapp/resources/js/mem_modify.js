@@ -19,7 +19,7 @@ $(function(){
 		
 		}else if(oper == "list"){
 			operForm.find("[name='mem_id']").remove();
-			operForm.attr('action','/mem/mem_list');
+			operForm.attr('action','/admin/mem/memList');
 		}
 		
 		operForm.submit();		

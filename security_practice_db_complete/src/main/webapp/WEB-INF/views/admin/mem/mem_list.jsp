@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../../views/includes/header.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="../../includes/header.jsp" %>
 
 <div id="layoutSidenav_content">
                 <main>
@@ -38,7 +39,7 @@
   <tbody>
   	<c:forEach var="list" items="${mem}">
 	    <tr>
-	      <th scope="row">${list.mem_id}</th>
+	      <th scope="row"><a href="/admin/mem/memRead?mem_id=${list.mem_id}">${list.mem_id}</a></th>
 	      <td>${list.grade_id}</td>
 	      <td>${list.company_id}</td>
 	      <td>${list.dept_id}</td>
@@ -46,19 +47,19 @@
 	      <td>${list.mem_phone}</td>
 	      <td>${list.mem_mail}</td>
 	      <td>${list.mem_gender}</td>
-	      <td>${list.mem_birth}</td>
+	      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.mem_birth}"/></td>
 	      <td>${list.mem_addr}</td>
 	      <td>${list.mem_sal}</td>
 	      <td>${list.mem_pwd}</td>
-	      <td>${list.mem_con_start}</td>
-	      <td>${list.mem_con_end}</td>
-	      <td>${list.mem_dcon_start}</td>
-	      <td>${list.mem_dcon_end}</td>
+	      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.mem_con_start}"/></td>
+	      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.mem_con_end}"/></td>
+	      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.mem_dcon_start}"/></td>
+	      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.mem_dcon_end}"/></td>
 	    </tr>
     </c:forEach>
   </tbody>
 </table>
-<button type="button" class="btn btn-primary back-admin">돌아가기</button>
+<button type="button" class="btn btn-primary back-user">돌아가기</button>
 
 
 <!-- 페이지 나누기 하단 부분 -->
@@ -97,4 +98,4 @@
 <script src="/resources/js/list.js"></script>
 <script src="/resources/js/back.js"></script>
 </html>
-<%@include file="../../views/includes/footer.jsp" %>
+<%@include file="../../includes/footer.jsp" %>

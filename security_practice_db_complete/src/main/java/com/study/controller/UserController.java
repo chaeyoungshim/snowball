@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -510,10 +511,10 @@ public class UserController {
     ////////////////////////////////////////////////////댓글 시작/////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     @PostMapping(path = "/replies/new")
-    public ResponseEntity<String> create(@RequestBody ReplyDTO insertDto){
-       log.info("댓글 삽입 요청 "+insertDto);
+    public ResponseEntity<String> create(@RequestBody Principal principal,String board_id, String reply_content){
+       log.info("댓글 삽입 요청 "+board_id+principal.getName()+reply_content);
        
-       return replyService.replyInsert(insertDto)?new ResponseEntity<String>("success", HttpStatus.OK):
+       return replyService.replyInsert(principal.getName(),board_id,reply_content)?new ResponseEntity<String>("success", HttpStatus.OK):
           new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     

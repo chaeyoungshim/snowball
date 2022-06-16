@@ -62,12 +62,10 @@
   <button id="uploadBtn" class="btn btn-primary">신청하기</button>
   <button type="button" class="btn btn-primary back-user">돌아가기</button>
 </form>
-</body>
 <script>
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 </script>
 <script src="/resources/js/upload.js"></script>
 <script src="/resources/js/back.js"></script>
-</html>
 <%@include file="../../../views/includes/footer.jsp" %>
