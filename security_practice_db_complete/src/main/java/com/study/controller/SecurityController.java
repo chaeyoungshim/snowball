@@ -1,14 +1,17 @@
 package com.study.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.dto.MemoDTO;
@@ -58,21 +61,25 @@ public class SecurityController {
 		return "accessdenied";
 	}
 	
+
+	
+	
+	
 	
 	// 사용자 main 페이지
 	@GetMapping("/user/index")
-	public String userPage(/* @RequestParam("mem_id") */String mem_id, Model model) {
+	public String userPage(Model model,Principal principal) {
 		log.info("user page 요청");
 		log.info("쪽지리스트 요청");
 		log.info("캘린더도 추가");
 		log.info("메모도 추가");
+		log.info("사용자 아이디 : "+principal.getName());
 		
-		List<MsgDTO> mList = msgService.mSelect(mem_id);
-		
+		List<MsgDTO> mList = msgService.mSelect(principal.getName());
 		model.addAttribute("mList", mList);
-		
-		MemoDTO memoRead = memoService.memoReadRow(mem_id);
-		model.addAttribute("memoRead", memoRead);
+//		
+//		MemoDTO memoRead = memoService.memoReadRow(mem_id);
+//		model.addAttribute("memoRead", memoRead);
 		
 		return "user";
 	}
@@ -110,9 +117,11 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/user/msg/msgInsert")
-	public String msgInsertPost(@Param("receiver_id") String receiver_id, @Param("msg_content") String msg_content) {
+	public String msgInsertPost(MsgDTO insertDto, Principal principal) {
 		log.info("insert 확인");
-		msgService.msgInsert(receiver_id, msg_content);
+		
+		msgService.msgInsert(principal.getName(),insertDto.getReceiver_id(), insertDto.getMsg_content());
+		
 		return "redirect:/user/index";
 		
 	}

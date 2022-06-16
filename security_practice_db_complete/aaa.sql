@@ -120,7 +120,7 @@ values(concat('MEMO',memo_seq.nextval),'20220011','hello');
 
 
 
-
+select * from msg;
 
 
 

@@ -26,8 +26,8 @@ public class MsgServiceImpl implements MsgService {
 	}
 
 	@Override
-	public boolean msgInsert(@Param("receiver_id") String receiver_id, @Param("msg_content") String msg_content) {
-		return mapper.msgInsert(receiver_id, msg_content)==1?true:false;
+	public boolean msgInsert(@Param("mem_id") String mem_id ,@Param("receiver_id") String receiver_id, @Param("msg_content") String msg_content) {
+		return mapper.msgInsert(mem_id,receiver_id,msg_content)==1?true:false;
 	}
 
 	@Override

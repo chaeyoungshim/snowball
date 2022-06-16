@@ -21,7 +21,7 @@
                                         <i class="fas fa-chart-area me-1"></i>
                                         쪽지
                                     </div>
-                                    <div class="card-body" style="display: inline-block; white-space:nowrap;">
+                                    <div class="card-body" style="display: inline-block; white-space:nowrap; height:39rem;">
                                     
                                      <div>
                                     	<form action="" method="post" class="msgViewForm" style="overflow:scroll; height:38rem; letter-spacing:0; word-spacing:0;">
@@ -49,6 +49,7 @@
 									        </c:forEach> 
 									        </tbody>
 									        </table>
+									         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									        <button type="button" class="btn btn-primary msgBtn" onclick="location='/user/msg/msgInsert'" style="margin-top:5px;">작성</button>
 									        <input type="hidden" name="mem_id" value="<sec:authentication property='principal.username'/>">
 									    </form>
@@ -105,7 +106,6 @@
                         </div>
                     </div>
                 </main>
-
 <%@include file="../views/includes/footer.jsp" %>
 </div>
 

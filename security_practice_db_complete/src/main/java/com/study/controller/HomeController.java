@@ -1,5 +1,6 @@
 package com.study.controller;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -33,8 +34,14 @@ public class HomeController {
 	
 	@ResponseBody
 	@GetMapping("/auth")
-	public Authentication auth() {
+	public Authentication auth(Principal principal) {
+		log.info("사용자 로그인 정보 가져오기"+ principal.getName());
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
+	
+	
+	
+	
+	
 	
 }

@@ -2,23 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.mapper.MsgMapper">
 
-<select id="mSelect" resultType="com.study.dto.MsgDTO">
-	select msg_id, sender_id, receiver_id, msg_content
-	from msg
-	where receiver_id = '20220011'
-</select> 
 
-<select id="msgReadRow" resultType="com.study.dto.MsgDTO">
-	select msg_id, sender_id, receiver_id, msg_content
-	from msg
-	where msg_id = '${msg_id}'
-</select>
 
-<insert id="msgInsert">
-	insert into msg
-	values(concat('MSG',msg_seq.nextval), '20220011', #{receiver_id}, #{msg_content}, sysdate)
-</insert>
 
+	<!-- 컨트롤러에서 mem_id 시큐리터 정보 가져와서 넣어주니까 성공 -->
+	<select id="mSelect" resultType="com.study.dto.MsgDTO">
+		select msg_id, sender_id, receiver_id, msg_content
+		from msg
+		where receiver_id = #{mem_id}
+	</select> 
+	
+	
+	
+	
+	
+	<!-- 읽어오는건 msg_id 잘 넘겨줘서 잘 읽어옴 -->
+	<select id="msgReadRow" resultType="com.study.dto.MsgDTO">
+		select msg_id, sender_id, receiver_id, msg_content
+		from msg
+		where msg_id = '${msg_id}'
+	</select>
+	
+	
+	
+	
+	<!-- 인서트 성공  -->
+	<insert id="msgInsert">
+		insert into msg(msg_id, sender_id, receiver_id, msg_content, msg_send_date) 
+		values(concat('MSG',msg_seq.nextval), #{mem_id}, #{receiver_id}, #{msg_content}, sysdate)
+	</insert>
+	
+	
+	
+	<!-- 삭제도 잘됨 -->
    <delete id="msgDelete">
       delete from MSG where msg_id = #{msg_id}
    </delete>
@@ -26,3 +42,5 @@
 
 
 </mapper>
+
+

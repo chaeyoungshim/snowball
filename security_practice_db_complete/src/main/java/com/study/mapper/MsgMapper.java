@@ -9,6 +9,6 @@ import com.study.dto.MsgDTO;
 public interface MsgMapper {
 	public List<MsgDTO> mSelect(String mem_id);
 	public MsgDTO msgReadRow(String msg_id);
-	public int msgInsert(@Param("receiver_id") String receiver_id, @Param("msg_content") String msg_content);
+	public int msgInsert(@Param("mem_id") String mem_id ,@Param("receiver_id") String receiver_id, @Param("msg_content") String msg_content);
 	public int msgDelete(String msg_id);
 }
