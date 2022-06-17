@@ -32,21 +32,21 @@
   <thead>
     <tr>
       <th scope="col">직원ID</th>
-      <th scope="col">직원부서</th>
+      <th scope="col">부서</th>
       <th scope="col">원청</th>
       <th scope="col">부서</th>
       <th scope="col">이름</th>
-      <th scope="col">전화번호</th>
+      <th scope="col">연락처</th>
       <th scope="col">이메일</th>
       <th scope="col">성별</th>
       <th scope="col">생년월일</th>
       <th scope="col">주소</th>
       <th scope="col">연봉</th>
       <th scope="col">비밀번호</th>
-      <th scope="col">고용일자</th>
-      <th scope="col">계약만료일자(비정규직)</th>
-      <th scope="col">원청 계약일</th>
-      <th scope="col">원청 계약 만료일</th>
+      <th scope="col">고용일</th>
+      <th scope="col">계약만료</th>
+      <th scope="col">원청시작</th>
+      <th scope="col">원청만료</th>
     </tr>
   </thead>
   <tbody>

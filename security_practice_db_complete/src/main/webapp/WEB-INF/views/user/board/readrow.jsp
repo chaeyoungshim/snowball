@@ -35,24 +35,35 @@
   
  <div class="form-groups">
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+  
+  <!-- 리스트 버튼은 누구나 다 보여져야하니까 권한 걸지 않기 -->
   <button type="button" class="btn btn-info" >리스트</button>   
-   <button type="button" class="btn btn-success" id="ModBtn">수정</button>        
-   <button type="button" class="btn btn-danger" id="RemoveBtn">삭제</button>  
+  
+  <!-- 수정 및 삭제버튼은 자기 자신을 제외한 다른 사람 게시물을 수정/삭제 불가해야하므로 권한 조건 걸어주기 -->
+   <sec:authentication property="principal" var="info"/>
+   <sec:authorize access="isAuthenticated()">
+   		<c:if test="${info.username == dto.mem_id}">
+		   <button type="button" class="btn btn-success" id="ModBtn">수정</button>        
+		   <button type="button" class="btn btn-danger" id="RemoveBtn">삭제</button>  
+  		 </c:if>
+   </sec:authorize>  
+   
+   
  </div>
 </form>
 </div>
 
 <%-- 댓글 리스트 영역 --%>    
-<div class="row">
+<%-- <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-comments fa-fw"></i>
 				Reply
 				
-			<%--	 <sec:authorize access="isAuthenticated()"> --%> 
+				 <sec:authorize access="isAuthenticated()"> 
 					<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Reply</button>
-			<%--		</sec:authorize>  --%> 	
+					</sec:authorize>  	
 					</div>
 					
  	<div class="panel-body">
@@ -69,15 +80,15 @@
 					</li>
 				</ul>
 			</div>
-			<%-- 댓글 페이지 영역 --%>
+			댓글 페이지 영역
 			<div class="panel-footer"></div>
 		</div>
-	</div>
+	</div> --%>
 <%@include file="../../includes/footer.jsp" %>   				
 </div>
 			
 <%-- 댓글 작성 모달 폼 --%>
-<div class="modal" tabindex="-1" id="replyModal" data-rno="1">
+<%-- <div class="modal" tabindex="-1" id="replyModal" data-rno="1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -109,7 +120,7 @@
     </div>
   </div>
  
-</div>  
+</div>   --%>
 
 <%-- modify / list 버튼 클릭시 이동할 폼 --%>            
 <form action="" id="operForm">
@@ -127,6 +138,6 @@
 	let csrfTokenValue = "${_csrf.token}";
 </script>
 <script src="/resources/js/read_row.js"></script>
-<script src="/resources/js/reply.js"></script> 
+<!-- <script src="/resources/js/reply.js"></script>  -->
 
 

@@ -56,14 +56,22 @@
 	  <tbody>
 	  	<c:forEach var="list" items="${list}">
 		    <tr>
-		      <th scope="row"><a href="/user/approvalRead?approval_id=${list.approval_id}"> ${list.approval_id}</a></th>
-		      <td>${list.mem_id}</td>
-		      <td>${list.approval_type_id}</td>
-		      <td>${list.approval_commit_id}</td>
-		      <td>${list.approval_inter_id}</td>
-		      <td>${list.approval_final_id}</td>
-		      <td>${list.approval_reject}</td>
-		      <td>${list.approval_content}</td>
+		      
+		      
+		       <sec:authentication property="principal" var="info"/>
+  			   <sec:authorize access="isAuthenticated()">
+		      		<c:if test="${info.username == list.mem_id}">
+		      			<th scope="row"><a href="/user/approvalRead?approval_id=${list.approval_id}"> ${list.approval_id}</a></th>
+		      			<td>${list.mem_id}</td>
+					     <td>${list.approval_type_id}</td>
+					     <td>${list.approval_commit_id}</td>
+					     <td>${list.approval_inter_id}</td>
+					     <td>${list.approval_final_id}</td>
+					     <td>${list.approval_reject}</td>
+					     <td>${list.approval_content}</td>
+		       		</c:if>
+   			   </sec:authorize> 
+		      
 		    </tr>
 	    </c:forEach>
 	  </tbody>

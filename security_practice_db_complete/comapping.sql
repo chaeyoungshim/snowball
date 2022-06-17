@@ -7,4 +7,4 @@ select * from mem order by mem_id desc;
 
 select * from mem;
 
-select * from reply;
+select * from commute;

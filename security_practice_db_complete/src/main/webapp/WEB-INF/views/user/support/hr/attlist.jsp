@@ -27,7 +27,6 @@ prefix="c" %>
 	      <th scope="col">근태ID</th>
 	      <th scope="col">출근시간</th>
 	      <th scope="col">퇴근시간</th>
-	      <th scope="col">초과근무시간</th>
   		 </tr>
           </thead>
 		<tbody>
@@ -37,7 +36,6 @@ prefix="c" %>
 		      <td>${list.att_id}</td>
 		      <td>${list.commute_in}</td>
 		      <td>${list.commute_out}</td>
-		      <td>${list.commute_wot}</td>
 			 </tr>
 		  </c:forEach> 
 		  </tbody>
