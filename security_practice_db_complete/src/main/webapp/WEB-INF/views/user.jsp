@@ -49,8 +49,38 @@
 									        </c:forEach> 
 									        </tbody>
 									        </table>
+									        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									        <button type="button" class="btn btn-primary msgBtn" style="margin-top:4px;" onclick="location='/user/msg/msgInsert'">작성</button>
 									    </form>
+									    
+									    <!-- 페이지 나누기 하단 부분 -->
+										<div class="text-center">
+										  <ul class="pagination">
+										     <c:if test="${pageDto.prev}">
+										       <li class="paginate_button previous"><a href="${pageDto.startPage-1}">Previous</a></li>
+										    </c:if>
+										    
+										    <!-- 숫자 부분은 루프가 돌아야 하기에 forEach 써주기 -->
+										    <c:forEach var="idx" begin="${pageDto.startPage}" end="${pageDto.endPage}">
+										         <li class="paginate_button ${pageDto.cri.pageNum == idx?'active':''}"><a href="${idx}">${idx}</a></li>
+										    </c:forEach>
+										    
+										   <c:if test="${pageDto.next}">    
+										            <li class="paginate_button next"><a href="${pageDto.endPage+1}">Next</a></li>
+										    </c:if> 
+										       
+										  </ul>
+										</div>
+										
+										<form action="" id="actionForm">
+											<input type="hidden" name="pageNum" value="${cri.pageNum}" />
+											<input type="hidden" name="amount" value="${cri.amount}" />
+											<input type="hidden" name="type" value="${cri.type}" />
+											<input type="hidden" name="keyword" value="${cri.keyword}" />
+										</form>
+									    
+									    
+									    
 									   </div>  
 									</div>
                                 </div>
@@ -83,8 +113,9 @@
 								  <div class="col-mb-3 memocl">
 								 	<form action="" method="post" role="form" id="listForm" >
 										<div>	
-											<input class="form-control" style="width: 15%;" type="text" name="mem_name" value='<sec:authentication property="principal.user.mem_name"/>' readonly="readonly"/>
-											<input type="hidden" style="width: 15%;" name="mem_id" value='<sec:authentication property="principal.username"/>' readonly="readonly"/>
+											<%-- <input class="form-control" style="width: 15%;" type="text" name="mem_name" value='<sec:authentication property="principal.user.mem_name"/>' readonly="readonly"/>
+											<input type="hidden" style="width: 15%;" name="mem_id" value='<sec:authentication property="principal.username"/>' readonly="readonly"/> --%>
+											<input class="form-control" style="width: 15%;" type="text" name="mem_name" value="${memoRead.mem_id}" readonly="readonly"/>
 										</div>
 										<div class="col-mb-6">
 									  <textarea class="form-control" style="resize: none;" rows="7" name="memo_content">${memoRead.memo_content}</textarea>
@@ -101,6 +132,7 @@
                         </div>
                     </div>
                 </main>
+<script src="/resources/js/list.js"></script>
 <%@include file="../views/includes/footer.jsp" %>
 </div>
 

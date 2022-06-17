@@ -158,6 +158,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/user/approvalInsert">결재 기안</a>
                                     <a class="nav-link" href="/user/approvalList">결재 조회</a>
+                                    <a class="nav-link" href="/user/approvalCommitList">결재 수신</a>
                                 </nav>
                             </div>
                             

@@ -13,7 +13,7 @@
                             <li class="breadcrumb-item active">Approval Information</li>
                         </ol>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="approvalCommit?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data" id="approval_commit_form">
 
   <div class="form-group">
     <label for="approval_id">결재ID</label>
@@ -38,22 +38,25 @@
   
   <div class="form-group">
     <label for="approval_commit_id">결재승인번호</label>
-    <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly >
+    <div>
+	    <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly >
+	    <!-- <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly > -->
+    </div>
   </div>
   
   <div class="form-group">
     <label for="approval_commit_inter_check">중간승인현황</label>
     <div>
-       <input type="text" class="form-control" name="approval_commit_inter_check" value="${commitDto.approval_commit_inter_check}" readonly >
-       <!-- <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly > -->
+	    <input type="text" class="form-control" name="approval_commit_inter_check" value="${commitDto.approval_commit_inter_check}" readonly >
+	    <!-- <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly > -->
     </div>
   </div>
   
   <div class="form-group">
     <label for="approval_commit_final_check">최종승인현황</label>
     <div>
-       <input type="text" class="form-control" name="approval_commit_final_check" value="${commitDto.approval_commit_final_check}" readonly >
-       <!-- <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly > -->
+	    <input type="text" class="form-control" name="approval_commit_final_check" value="${commitDto.approval_commit_final_check}" readonly >
+	    <!-- <input type="text" class="form-control" name="approval_commit_id" value="${dto.approval_commit_id}" readonly > -->
     </div>
   </div>
   
@@ -77,7 +80,7 @@
   
   <div class="form-group">
     <label for="approval_reject">결재반려사유</label>
-  	<input type="text" class="form-control" name="approval_reject" value="${dto.approval_reject}" readonly>
+  	<input type="text" class="form-control" name="approval_reject" value="${dto.approval_reject}">
     <!--<input type="text" class="form-control" name="approval_reject">  -->
   </div>
   
@@ -110,6 +113,8 @@
 	</div>
   
   <div>
+  	 <button type="submit" class="btn btn-success approval_commit">승인</button>
+  	 <button type="submit" class="btn btn-danger approval_reject">반려</button>
  	 <button type="reset" class="btn btn-primary">돌아가기</button>
  	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   </div>
@@ -122,7 +127,7 @@
 	</script>
 
 
-<script src="/resources/js/read.js"></script>
+<script src="/resources/js/commitRead.js?ver=3"></script>
 <script src="/resources/js/upload.js"></script>
 
 </html>

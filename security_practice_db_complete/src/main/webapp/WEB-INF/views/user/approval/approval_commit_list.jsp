@@ -8,10 +8,10 @@
                 <main>
                     <div class="container-fluid px-4">
                     	<h1 class="mt-4 breadcrumb mb-4 layout-center">
-							<input type="text" name="mem_id" value='결재 조회' class="login-name" readonly/>   
+							<input type="text" name="mem_id" value='결재 수신' class="login-name" readonly/>   
 						</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Approval List</li>
+                            <li class="breadcrumb-item active">Approval Commit List</li>
                         </ol>
                         
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -31,6 +31,7 @@
             		<select name="type" id="">
 	            		<option value="W" <c:out value="${cri.type == 'W' ? 'selected':'' }"/>>결재내용</option>
 	            		<option value="T" <c:out value="${cri.type == 'T' ? 'selected':'' }"/>>결재ID</option>
+	            		<option value="C" <c:out value="${cri.type == 'C' ? 'selected':'' }"/>>사용자ID</option>
          	    	</select>
          	    	<input type="text" name="keyword" id="" value="${cri.keyword}"/>
          	    	<button class="btn btn-default" type="submit">Search</button>
@@ -47,7 +48,7 @@
 	      <th scope="col">결재종류</th>
 	      <th scope="col">결재승인번호</th>
 	      <th scope="col">중간승인현황</th>
-          <th scope="col">최종승인현황</th>
+	      <th scope="col">최종승인현황</th>
 	      <th scope="col">중간승인권자</th>
 	      <th scope="col">최종승인권자</th>
 	      <th scope="col">결재반려사유</th>
@@ -57,28 +58,21 @@
 	  <tbody>
 	  	<c:forEach var="list" items="${list}" varStatus = "status">
 		    <tr>
-		      
-		       <sec:authentication property="principal" var="info"/>
-  			   <sec:authorize access="isAuthenticated()">
-		      		<c:if test="${info.username == list.mem_id}">
-		      			<th scope="row"><a href="/user/approvalRead?approval_id=${list.approval_id}&approval_commit_id=${list.approval_commit_id}"> ${list.approval_id}</a></th>
-		      			<td>${list.mem_id}</td>
-					     <td>${list.approval_type_id}</td>
-					     <td>${list.approval_commit_id}</td>
-					     <td>${commitList[status.index].approval_commit_inter_check}</td>
-          				 <td>${commitList[status.index].approval_commit_final_check}</td>
-					     <td>${list.approval_inter_id}</td>
-					     <td>${list.approval_final_id}</td>
-					     <td>${list.approval_reject}</td>
-					     <td>${list.approval_content}</td>
-		       		</c:if>
-   			   </sec:authorize> 
-		      
+		      <th scope="row"><a href="/user/approvalCommitRead?approval_id=${list.approval_id}&approval_commit_id=${list.approval_commit_id}"> ${list.approval_id}</a></th>
+		      <td>${list.mem_id}</td>
+		      <td>${list.approval_type_id}</td>
+		      <td>${list.approval_commit_id}</td>
+		      <td>${commitList[status.index].approval_commit_inter_check}</td>
+		      <td>${commitList[status.index].approval_commit_final_check}</td>
+		      <td>${list.approval_inter_id}</td>
+		      <td>${list.approval_final_id}</td>
+		      <td>${list.approval_reject}</td>
+		      <td>${list.approval_content}</td>
 		    </tr>
 	    </c:forEach>
 	  </tbody>
 	</table>
-	<button type="button" class="btn btn-primary back-user">메인페이지</button>
+	<button type="button" class="btn btn-primary back-user">돌아가기</button>
 	
 	<!-- 페이지 나누기 하단 부분 -->
 	<div class="text-center">
@@ -111,6 +105,8 @@
 		<input type="hidden" name="keyword" value="${cri.keyword}" />
 	</form>
 
+</body>
 <script src="/resources/js/list.js"></script>
 <script src="/resources/js/back.js"></script>
+</html>
 <%@include file="../../../views/includes/footer.jsp" %>

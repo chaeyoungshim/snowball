@@ -12,15 +12,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.study.dto.CriteriaDTO;
 import com.study.dto.CustomUser;
 import com.study.dto.MemDTO;
 import com.study.dto.MemoDTO;
 import com.study.dto.MsgDTO;
+import com.study.dto.PageDTO;
 import com.study.service.AdminUserControlService;
 import com.study.service.MemoService;
 import com.study.service.MsgService;
@@ -77,14 +80,17 @@ public class SecurityController {
 	
 	// 사용자 main 페이지
 	@GetMapping("/user/index")
-	public String userPage(Model model,Principal principal) {
+	public String userPage(Model model,Principal principal, @ModelAttribute("cri") CriteriaDTO cri) {
 		log.info("user page 요청");
 		log.info("쪽지리스트 요청");
 		log.info("캘린더도 추가");
 		log.info("메모도 추가");
 		log.info("사용자 아이디 : "+principal.getName());
 		
-		List<MsgDTO> mList = msgService.mSelect(principal.getName());
+		List<MsgDTO> mList = msgService.mSelect(principal.getName(), cri.getPageNum(),cri.getAmount());
+		int total = msgService.totalCnt(cri,principal.getName());
+		
+		model.addAttribute("pageDto", new PageDTO(cri, total));
 		model.addAttribute("mList", mList);
 		
 		// 메모 읽어들이기 => 시큐리티 정보 아이디로 불러오기
