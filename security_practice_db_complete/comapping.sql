@@ -8,3 +8,6 @@ select * from mem order by mem_id desc;
 select * from msg;
 
 select * from approval_commit;
+
+
+select mem_seq.nextval from dual;

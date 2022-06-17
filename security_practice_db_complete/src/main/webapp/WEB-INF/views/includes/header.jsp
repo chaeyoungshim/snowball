@@ -115,8 +115,8 @@
 	                    
 	                    <!-- 드롭다운 메뉴 내 항목 -->
 	                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">비밀번호 변경</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
+	                       <!--  <li><a class="dropdown-item" href="#!">비밀번호 변경</a></li> -->
+	                        <!-- <li><hr class="dropdown-divider" /></li> -->
 	                        <li><sec:authorize access="isAuthenticated()">
 									<form action="/logout" method="post">
 										<button type="submit" class="dropdown-item">로그아웃</button>

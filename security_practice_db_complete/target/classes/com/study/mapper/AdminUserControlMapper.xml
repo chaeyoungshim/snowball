@@ -63,7 +63,7 @@
 	<!-- 관리자가 사용자 회원가입시켜주기 -->
 	<insert id="userInsert">
 		insert into mem(mem_id, grade_id, company_id, dept_id, mem_name, mem_phone, mem_mail, mem_gender, mem_birth, mem_addr, mem_sal, mem_pwd, mem_con_start,mem_con_end, mem_dcon_start, mem_dcon_end,enabled)   
-		values( #{mem_id}, #{grade_id} ,#{company_id}, #{dept_id} , #{mem_name}, #{mem_phone}, #{mem_mail}, #{mem_gender}, #{mem_birth, jdbcType=DATE}, #{mem_addr}, #{mem_sal}, #{mem_pwd}, #{mem_con_start, jdbcType=DATE}, #{mem_con_end, jdbcType=DATE}, #{mem_dcon_start, jdbcType=DATE}, #{mem_dcon_end, jdbcType=DATE}, 1)
+		values(#{mem_id}, #{grade_id} ,#{company_id}, #{dept_id} , #{mem_name}, #{mem_phone}, #{mem_mail}, #{mem_gender}, #{mem_birth, jdbcType=DATE}, #{mem_addr}, #{mem_sal}, #{mem_pwd}, #{mem_con_start, jdbcType=DATE}, #{mem_con_end, jdbcType=DATE}, #{mem_dcon_start, jdbcType=DATE}, #{mem_dcon_end, jdbcType=DATE}, 1)
 	</insert>
 	
 	

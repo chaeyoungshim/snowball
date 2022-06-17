@@ -36,7 +36,7 @@
          </div>
          
          <div class="form-group">
-            <label >파견 사원명</label>
+            <label >파견 담당자</label>
             <input name="company_man" class="form-control" required>
          </div>
          
